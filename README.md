@@ -1,4 +1,4 @@
-# Sundhedsportalen (AAU.TONITE.DK)
+# [Sundhedsportalen](http://aau.tonite.dk)
 
 Aalborg University, Copenhagen (AAU)  
 Software P2 Project  
