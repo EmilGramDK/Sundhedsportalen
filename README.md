@@ -6,7 +6,10 @@ Group 7
 
 ## Compilation
 
+Install node packages:
 `npm i`
+
+Start node server
 `npm start`
 
 ## Development
