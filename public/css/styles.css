@@ -67,19 +67,3 @@ body {
   display: inline-block;
   margin-bottom: 1rem;
 }
-
-.repo {
-  padding: 2rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.repo-title {
-  color: #0366d6;
-  text-decoration: none;
-  font-weight: 300;
-}
-
-.repo-description {
-  margin-top: 1rem;
-  color: #ccc;
-}
