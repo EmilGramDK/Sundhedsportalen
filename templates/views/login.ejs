@@ -1,0 +1,27 @@
+<%- include('header.ejs') %>
+
+<header class="sundhed">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-4 text-white">
+                <div class="text-center">
+                    <h1 class="mb-5">Log på Sundhedsportalen</h1>
+                </div>
+                <form action="/login" method="post">
+                        <div class="mb-3">
+                          <label for="username" class="form-label">Brugernavn</label>
+                          <input type="text" placeholder="Dit brugernavn" class="form-control" name="username">
+                        </div>
+                        <div class="mb-3">
+                          <label for="password" class="form-label">Adgangskode</label>
+                          <input type="password" placeholder="Din adgangskode" class="form-control" name="password">
+                        </div><br>
+                        <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-block">Log på</button>
+                    </div>
+                      </form>
+            </div>
+        </div>
+    </div>
+</header>
+<%- include('footer.ejs') %>

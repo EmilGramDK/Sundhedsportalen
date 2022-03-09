@@ -15,18 +15,22 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("login");
+  res.render("login", {
+    info: "Brugernavn: admin - Adgangskode: 123"
+  });
 });
 
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
-  if (username === "p2login" && password === "12345") {
+  if (username === "admin" && password === "123") {
     res.render("success", {
       username: username,
     });
   } else {
-    res.render("failure");
+    res.render("login", {
+      error: "Forkert brugernavn eller adgangskode"
+    });
   }
 });
 
