@@ -19,12 +19,12 @@
     <body>
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
-            <div class="container">
+            <div class="container" style="padding-top: 10px; padding-bottom: 10px;">
                 <a class="navbar-brand" href="/"><i class="bi-bandaid-fill"></i> Sundhedsportalen</a>
                 <% if (!locals.user) { %>
                 <div class="right">
-                    <a class="btn btn-primary btn-sm" href="/login">Log på borger</a>
-                    <a class="btn btn-danger btn-sm" href="/login">Log på fagperson</a>
+                    <a class="btn btn-danger btn-sm" href="/login">LOG PÅ SOM BORGER</a>
+                    <a class="btn btn-primary btn-sm" href="/login">FAGPERSON</a>
                 </div>
                 <% } else { %>
                 <div class="right">
