@@ -1,27 +1,17 @@
-<div class="login-form">
-  <form action="/login" method="post">
-    <div class="form-control">
-      <label for="name">Brugernavn (p2login)</label>
-      <input
-        type="text"
-        name="username"
-        id="username"
-        autocomplete="off"
-        placeholder="Brugernavn"
-      />
+  <section class="jumbotron">
+    <div class="container">
+      
+      <form action="/login" method="post">
+        <div class="mb-3">
+          <label for="username" class="form-label">Brugernavn</label>
+          <input type="text" class="form-control" id="username" name="username">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Adgangskode</label>
+          <input type="text" class="form-control" id="password" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      
     </div>
-    <div class="form-control">
-      <label for="password">Adgangskode (12345)</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        autocomplete="off"
-        placeholder="Adgangskode"
-      />
-    </div>
-    <div class="form-control">
-      <button type="submit" class="btn">Login</button>
-    </div>
-  </form>
-</div>
+  </section>
