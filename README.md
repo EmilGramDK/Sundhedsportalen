@@ -4,7 +4,7 @@ Aalborg University, Copenhagen (AAU)
 Software P2 Project  
 Group 7
 
-## Compilation
+## How to run
 
 Install node packages:
 `npm i`
