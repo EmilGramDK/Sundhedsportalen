@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const session = require('express-session');
+const session = require('cookie-session');
 const axios = require("axios");
 const bodyParser = require("body-parser");
 const path = require("path");
