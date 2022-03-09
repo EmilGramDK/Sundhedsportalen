@@ -1,8 +1,11 @@
-# [Sundhedsportalen](http://aau.tonite.dk)
+# Sundhedsportalen
 
 Aalborg University, Copenhagen (AAU)  
 Software P2 Project  
 Group 7
+
+## View website
+[aau.tonite.dk](http://aau.tonite.dk)
 
 ## How to run
 
