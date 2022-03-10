@@ -21,9 +21,7 @@ module.exports = function ({ app, dbConn }) {
       
     } else {
 
-      res.render("login", {
-        info: "CPR: 112233 - Adgangskode: 1234"
-      });
+      res.render("login");
 
     }
   });
