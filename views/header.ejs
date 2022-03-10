@@ -13,8 +13,8 @@
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/bootstrap.css" rel="stylesheet" />
-        <link href="css/custom.css" rel="stylesheet" />
+        <link href="/css/bootstrap.css" rel="stylesheet" />
+        <link href="/css/custom.css" rel="stylesheet" />
     </head>
     <body>
         <!-- Navigation-->
@@ -22,12 +22,12 @@
             <div class="container" style="padding-top: 10px; padding-bottom: 10px;">
                 <a class="navbar-brand" href="/"><i class="bi-bandaid-fill"></i> Sundhedsportalen</a>
                 <% if (!locals.user) { %>
-                <div class="right">
+                <div class="float-end">
                     <a class="btn btn-danger btn-sm" href="/login">LOG PÅ SOM BORGER</a>
                     <a class="btn btn-primary btn-sm" href="/login">FAGPERSON</a>
                 </div>
                 <% } else { %>
-                <div class="right">
+                <div class="float-end">
                     <a class="btn btn-danger btn-sm" href="/logout">Log ud</a>
                 </div>
                 <% } %>

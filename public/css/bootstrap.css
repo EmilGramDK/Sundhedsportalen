@@ -1,10 +1,5 @@
 @charset "UTF-8";
 /*!
-* Start Bootstrap - Landing Page v6.0.4 (https://startbootstrap.com/theme/landing-page)
-* Copyright 2013-2021 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-landing-page/blob/master/LICENSE)
-*/
-/*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
  * Copyright 2011-2021 Twitter, Inc.
@@ -11298,6 +11293,28 @@ textarea.form-control-lg {
 }
 .features-icons .features-icons-item .features-icons-icon i {
   font-size: 4.5rem;
+}
+
+header.borger {
+  position: relative;
+  background-color: #343a40;
+  background: url("../assets/img/bg-masthead.jpg") no-repeat center center;
+  background-size: cover;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+header.borger:before {
+  content: "";
+  position: absolute;
+  background-color: #1c375e;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+}
+header.borger h1, header.sundhed .h1 {
+  font-size: 2rem;
 }
 
 header.sundhed {

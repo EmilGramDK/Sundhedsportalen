@@ -15,7 +15,7 @@ const { PORT, DB_HOST, DB_NAME, DB_PORT, DB_USER_NAME, DB_USER_PASSWORD } =
   process.env;
 
 // setup view path
-const viewsDirPath = path.join(__dirname, "templates", "views");
+const viewsDirPath = path.join(__dirname, "views");
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
