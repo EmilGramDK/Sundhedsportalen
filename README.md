@@ -12,7 +12,7 @@ Group 7
 Install node packages:
 `npm i`
 
-Start node server (develoment):
+Start node server (development):
 `npm run dev`
 
 Start node server:
