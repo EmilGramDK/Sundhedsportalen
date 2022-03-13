@@ -7,7 +7,7 @@ Group 7
 ## View website
 [aau.tonite.dk](http://aau.tonite.dk)  
 
-![Website](https://img.shields.io/website?down_message=offline&label=site&up_message=online&url=http://aau.tonite.dk)  
+![Website](https://img.shields.io/website?down_message=offline&label=Sundhedsportalen&up_message=online&url=http://aau.tonite.dk)  
 
 ## How to run
 
