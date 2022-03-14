@@ -5,14 +5,15 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
+const mysql = require("mysql");
+const { PORT, DB_HOST, DB_NAME, DB_PORT, DB_USER_NAME, DB_USER_PASSWORD, HASH } =
+  process.env;
+
 app.use(session({
-	secret: 'secrethash',
+	secret: HASH,
 	resave: true,
 	saveUninitialized: true
 }));
-const mysql = require("mysql");
-const { PORT, DB_HOST, DB_NAME, DB_PORT, DB_USER_NAME, DB_USER_PASSWORD } =
-  process.env;
 
 // setup view path
 const viewsDirPath = path.join(__dirname, "views");
