@@ -9,6 +9,7 @@ const mysql = require("mysql");
 const { PORT, DB_HOST, DB_NAME, DB_PORT, DB_USER_NAME, DB_USER_PASSWORD, HASH } =
   process.env;
 
+// cookie session
 app.use(session({
 	secret: HASH,
 	resave: true,
