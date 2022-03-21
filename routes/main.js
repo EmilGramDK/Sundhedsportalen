@@ -1,9 +1,13 @@
 
 exports.index = function(req, res){
 
-  if (req.session.loggedin) {
+  if (req.session.loggedin && !req.session.fagperson) {
       
     res.redirect('/borger');
+    
+  } else if (req.session.loggedin && req.session.fagperson) {
+      
+    res.redirect('/fagperson');
     
   } else {
 
@@ -19,9 +23,9 @@ exports.logout = function(req, res){
 
 };
 
-exports.loginGet = function(req, res){
+exports.borgerLoginGet = function(req, res){
 
-  if (req.session.loggedin) {
+  if (req.session.loggedin && !req.session.fagperson) {
 
     res.redirect('/borger');
     
@@ -33,22 +37,34 @@ exports.loginGet = function(req, res){
 
 };
 
-exports.loginPost = function(req, res, dbConn){
+exports.borgerLoginPost = function(req, res, dbConn){
 
   const { cpr, password } = req.body;
 
     if (cpr && password) {
 
-      const sql = "SELECT * FROM users WHERE cpr=? AND password=? LIMIT 1";
+      const sql = "SELECT * FROM citizens WHERE cpr=? AND password=? LIMIT 1";
 
       dbConn.query(sql, [cpr, password], function (err, result) {
 
-        if (err) throw error;
+        if (err) throw err;
         
         if (result.length > 0) {
           
           req.session.loggedin = true;
-          req.session.user = result[0];
+          req.session.fagperson = false;
+          
+          var cpr = `${result[0].CPR}`;
+          var secure_cpr = cpr.replace(/\d{4}$/, '****');
+
+          req.session.user = {
+            id: result[0].id,
+            name: result[0].name,
+            cpr: secure_cpr,
+            practitioner: result[0].practitioner,
+            gender: result[0].gender,
+            birthday: result[0].birthday,
+          };
         
           res.redirect('/borger');
   
@@ -64,6 +80,68 @@ exports.loginPost = function(req, res, dbConn){
     } else {
 
       res.render("./main/login", {
+        error: "Forkert brugernavn eller adgangskode"
+      });
+    }
+
+};
+
+exports.fagpersonLoginGet = function(req, res){
+
+  if (req.session.loggedin && req.session.fagperson) {
+
+    res.redirect('/fagperson');
+    
+  } else {
+
+    res.render("./main/fagperson");
+
+  }
+
+};
+
+exports.fagpersonLoginPost = function(req, res, dbConn){
+
+  const { cpr, password } = req.body;
+
+    if (cpr && password) {
+
+      const sql = "SELECT * FROM professionals WHERE MAS=? AND password=? LIMIT 1";
+
+      dbConn.query(sql, [cpr, password], function (err, result) {
+
+        if (err) throw err;
+        
+        if (result.length > 0) {
+          
+          req.session.loggedin = true;
+          req.session.fagperson = true;
+          
+          var mas = `${result[0].CPR}`;
+          var secure_mas = cpr.replace(/\d{4}$/, '****');
+
+          req.session.user = {
+            id: result[0].id,
+            name: result[0].name,
+            mas: secure_mas,
+            gender: result[0].gender,
+            birthday: result[0].birthday,
+          };
+        
+          res.redirect('/fagperson');
+  
+        } else {
+
+          res.render("./main/fagperson", {
+            error: "Forkert brugernavn eller adgangskode"
+          });
+
+        }
+      });
+
+    } else {
+
+      res.render("./main/fagperson", {
         error: "Forkert brugernavn eller adgangskode"
       });
     }

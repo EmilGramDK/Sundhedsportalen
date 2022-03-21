@@ -1,0 +1,42 @@
+<%- include('../header.ejs') %>
+<header class="borger">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+
+            <div class="row">
+                
+                <div class="col-sm-6">
+                    <div class="text-center text-white">
+                    
+                        <span style="font-size: 13px; font-weight:bold">VELKOMMEN</span><br>
+                        <span style="font-size: 25px; font-weight:bold"><%=user.name%></span><br>
+                        <span style="font-size: 16px; font-weight:bold"><%=user.mas%></span>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="text-center text-white">
+                    
+                        <span style="font-size: 13px; font-weight:bold">DU ARBEJDER</span><br>
+                        <% workplaces.forEach(function(workplace) { %>
+                            <span style="font-size: 25px; font-weight:bold"><%=workplace.name%></span><br>
+                            <span style="font-size: 16px; font-weight:bold"><%=workplace.address%></span><br><br>
+                         <% }); %> 
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container" style="padding-top: 4rem;padding-bottom: 4rem;">
+        <div class="row justify-content-center text-center">
+            
+        </div>
+    </div>
+</section>
+<%- include('../footer.ejs') %>

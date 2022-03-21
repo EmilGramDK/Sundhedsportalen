@@ -2,12 +2,29 @@
 <header class="borger">
     <div class="container position-relative">
         <div class="row justify-content-center">
-            
-                <div class="text-center text-white">
+
+            <div class="row">
+                
+                <div class="col-sm-6">
+                    <div class="text-center text-white">
                     
-                    <span style="font-size: 30px; font-weight:bold">Velkommen</span><br>
-                    <span style="font-size: 18px; font-weight:bold"><%=user.name%></span>
+                        <span style="font-size: 13px; font-weight:bold">VELKOMMEN</span><br>
+                        <span style="font-size: 25px; font-weight:bold"><%=user.name%></span><br>
+                        <span style="font-size: 16px; font-weight:bold"><%=user.cpr%></span>
+                    </div>
+
                 </div>
+
+                <div class="col-sm-6">
+                    <div class="text-center text-white">
+                    
+                        <span style="font-size: 13px; font-weight:bold">DIN LÆGE</span><br>
+                        <span style="font-size: 25px; font-weight:bold"><%=practitioner.name%></span><br>
+                        <span style="font-size: 16px; font-weight:bold"><%=practitioner.address%></span><br>
+                    </div>
+                </div>
+
+            </div>
             
         </div>
     </div>
