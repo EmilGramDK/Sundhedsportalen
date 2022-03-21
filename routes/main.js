@@ -1,11 +1,21 @@
 
+function checkLogin(req, fagperson = false) {
+
+  if (req.session.loggedin && req.session.fagperson == fagperson) {
+    return true;
+  }
+
+  return false;
+
+}
+
 exports.index = function(req, res){
 
-  if (req.session.loggedin && !req.session.fagperson) {
+  if (checkLogin(req)) {
       
     res.redirect('/borger');
     
-  } else if (req.session.loggedin && req.session.fagperson) {
+  } else if (checkLogin(req, true)) {
       
     res.redirect('/fagperson');
     
@@ -15,7 +25,7 @@ exports.index = function(req, res){
   }
 
 };
-
+ 
 exports.logout = function(req, res){
 
   req.session.loggedin = false;
@@ -25,7 +35,7 @@ exports.logout = function(req, res){
 
 exports.borgerLoginGet = function(req, res){
 
-  if (req.session.loggedin && !req.session.fagperson) {
+  if (checkLogin(req)) {
 
     res.redirect('/borger');
     
@@ -88,7 +98,7 @@ exports.borgerLoginPost = function(req, res, dbConn){
 
 exports.fagpersonLoginGet = function(req, res){
 
-  if (req.session.loggedin && req.session.fagperson) {
+  if (checkLogin(req, true)) {
 
     res.redirect('/fagperson');
     
