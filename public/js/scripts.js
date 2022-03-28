@@ -1,4 +1,3 @@
-console.log("This is coming from script.js");
 
 function onChangeDatalistInput() {
     let input = document.getElementsByClassName("datainput")[0].value;
@@ -10,3 +9,12 @@ function onChangeDatalistInput() {
         datalist.removeAttribute("id");
     }
 }
+
+$("#goToPatient").click(function() {
+    var value = $("#selectPatient").val();
+
+    var val = $('#myList [value="' + value + '"]').attr("data-id");
+
+    window.location.href = "/fagperson/patient/" + val;
+  });
+
