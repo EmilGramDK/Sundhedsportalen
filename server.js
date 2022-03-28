@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const session = require('cookie-session');
-const axios = require("axios");
 const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
@@ -9,7 +8,13 @@ const mysql = require("mysql");
 const { PORT, DB_HOST, DB_NAME, DB_PORT, DB_USER_NAME, DB_USER_PASSWORD, HASH } =
   process.env;
 
-// cookie session
+// check if the constants above is defined
+if (!PORT || !DB_HOST || !DB_NAME || !DB_PORT || !DB_USER_NAME || !DB_USER_PASSWORD || !HASH) {
+  console.log("Please make sure you have defined all the constants in the .env file");
+  process.exit(1);
+}
+
+// setup hash for cookie storage
 app.use(session({
 	secret: HASH,
 	resave: true,
