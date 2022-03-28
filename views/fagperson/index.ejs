@@ -23,8 +23,11 @@
                     <h5 class="card-header">FAGPERSON</h5>
                     <div class="card-body">
                     
-                        <h6 class="card-title"></h6>
-                        <p class="card-text"></p>
+                        <% patients.forEach(function(patient) { %>
+                            <h6 class="card-title"><%=patient.name%></h6>
+                            <p class="card-text"><%=patient.CPR%></p>
+                            <hr>
+                          <% }); %> 
 
                     </div>
                   </div>

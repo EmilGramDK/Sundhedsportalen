@@ -9,6 +9,23 @@ function checkLogin(req) {
 
 }
 
+function getPatients(userID, dbConn) {
+
+  const sql = "SELECT citizens.id, citizens.CPR, citizens.name FROM roles LEFT JOIN citizens ON citizens.id = roles.user WHERE role = 0 AND roles.place IN (SELECT places.id FROM roles LEFT JOIN places ON places.id = roles.place WHERE roles.user = ? AND roles.role != 0)";
+
+  return new Promise((resolve, reject) => {
+
+    dbConn.query(sql, [userID], function (err, result) {
+
+      if (err) throw err;
+
+      resolve(result);
+
+    });
+
+  });
+}
+
 exports.index = function(req, res, dbConn) {
 
   if (checkLogin(req)) {
@@ -23,10 +40,19 @@ exports.index = function(req, res, dbConn) {
          
         if (result.length > 0) {
 
-          res.render("./fagperson/index", {
-            user: req.session.user,
-            workplaces: result
+          getPatients(user.id, dbConn).then(patients => {
+
+            res.render("./fagperson/index", {
+              user: req.session.user,
+              workplaces: result,
+              patients: patients
+            });
+
           });
+
+        } else {
+
+          res.redirect('/logout');
 
         }
 
@@ -38,3 +64,37 @@ exports.index = function(req, res, dbConn) {
   }
 
 };
+
+exports.patient = function(req, res, dbConn) {
+
+  if (checkLogin(req)) {
+
+    const patient = req.params.patient;
+
+    const sql = "SELECT id, CPR, name FROM citizens WHERE id = ?";
+
+    dbConn.query(sql, [patient], function (err, result) {
+
+      if (err) throw err;
+
+      if (result.length > 0) {
+          
+          res.render("./fagperson/patient", {
+            user: req.session.user,
+            patient: result[0]
+          });
+  
+        } else {
+            
+            res.redirect('/fagperson');
+  
+        }
+
+    });
+
+  } else {
+    
+    res.redirect('/fagperson/login');
+  }
+
+}

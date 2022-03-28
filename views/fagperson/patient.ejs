@@ -1,0 +1,50 @@
+<%- include('../header.ejs') %>
+
+<header class="borger">
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+
+            <div style="padding-top: 1rem;padding-bottom: 1rem;" class="text-center text-white">
+                
+                <span style="font-size: 30px;">Patientens sundhedsdata</span><br>
+                <span>Her får du et overblik over din patients sundhedsdata.</span>
+                
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container" style="padding-top: 4rem;padding-bottom: 4rem;">
+        <div class="row justify-content-center text-center">
+
+            <span style="font-size: 30px;"><%=patient.name%> (<%=patient.CPR%>)</span><br>
+
+            <div class="row" style="padding-top: 2rem;">
+                
+                <div class="col-sm-6">
+                    <div class="card">
+                        <a class="card-header" href="/fagperson/recept">
+                            <div class="float-start">Se recepter</div>
+                            <div class="float-end"><i class="bi-arrow-right"></i></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card">
+                        <a class="card-header" href="/fagperson/recept">
+                            <div class="float-start">Tilføj recept</div>
+                            <div class="float-end"><i class="bi-arrow-right"></i></div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<%- include('../footer.ejs') %>
