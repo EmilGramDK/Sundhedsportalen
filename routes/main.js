@@ -127,8 +127,8 @@ exports.fagpersonLoginPost = function(req, res, dbConn){
           req.session.loggedin = true;
           req.session.fagperson = true;
           
-          var mas = `${result[0].CPR}`;
-          var secure_mas = cpr.replace(/\d{4}$/, '****');
+          var mas = `${result[0].MAS}`;
+          var secure_mas = mas.replace(/\d{4}$/, '****');
 
           req.session.user = {
             id: result[0].id,

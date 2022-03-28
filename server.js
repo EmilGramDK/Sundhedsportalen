@@ -14,7 +14,7 @@ if (!PORT || !DB_HOST || !DB_NAME || !DB_PORT || !DB_USER_NAME || !DB_USER_PASSW
   process.exit(1);
 }
 
-// cookie session
+// setup hash for cookie storage
 app.use(session({
 	secret: HASH,
 	resave: true,

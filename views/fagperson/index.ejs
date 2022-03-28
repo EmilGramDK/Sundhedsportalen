@@ -21,11 +21,23 @@
 
                 <div class="card ">
                     <h5 class="card-header">FAGPERSON</h5>
-                    <div class="card-body">
-                    
-                        <h6 class="card-title"></h6>
-                        <p class="card-text"></p>
 
+                    <div class="card-body">
+
+                        <label for="exampleDataList" class="form-label">Vælg patient</label>
+                            
+                        <div class="row">
+                            <div class="col">
+                            <input class="form-control datainput" oninput="onChangeDatalistInput()" id="selectPatient" list="myList" placeholder="Søg efter patient...">
+                                <datalist class="datalist">
+                                    <% patients.forEach(function(patient) { %>
+                                        <option data-id="<%=patient.id%>" value="<%=patient.name%>"><%=patient.CPR%></option>
+                                    <% }); %> 
+                                </datalist>
+                              </div>
+                                <div class="col-md-auto">
+                                <button class="btn btn-danger" id="goToPatient">Se patient</button>
+                                </div></div>
                     </div>
                   </div>
                 
@@ -46,7 +58,6 @@
                     </div>
                   </div>
             </div>
-
         </div>
     </div>
 </section>
