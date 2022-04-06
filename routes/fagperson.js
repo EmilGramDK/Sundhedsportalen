@@ -26,6 +26,23 @@ function getPatients(userID, dbConn) {
   });
 }
 
+function getPatientNotes(patientID, userID, dbConn) {
+
+  const sql = "SELECT note FROM notes WHERE patient = ? AND pro = ?";
+
+  return new Promise((resolve, reject) => {
+
+    dbConn.query(sql, [patientID, userID], function (err, result) {
+
+      if (err) throw err;
+
+      resolve(result);
+
+    });
+
+  });
+}  
+
 exports.index = function(req, res, dbConn) {
 
   if (checkLogin(req)) {
@@ -78,11 +95,16 @@ exports.patient = function(req, res, dbConn) {
       if (err) throw err;
 
       if (result.length > 0) {
-          
+
+        getPatientNotes(patient, req.session.user.id, dbConn).then(notes => {
+
           res.render("./fagperson/patient", {
             user: req.session.user,
-            patient: result[0]
+            patient: result[0],
+            notes: notes
           });
+          
+        });
   
         } else {
             

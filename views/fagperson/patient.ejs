@@ -102,6 +102,13 @@
                         <div class="card-body">
                           <h6 class="card-title"><%=patient.name%></h6>
                           <p class="card-text"><%=patient.CPR%></p>
+
+                          <div class="card" style="margin-top: 10px;">
+                            <a class="card-header" href="/fagperson/">
+                                <div class="float-start">Send besked</div>
+                                <div class="float-end"><i class="bi-arrow-right"></i></div>
+                            </a>
+                        </div>
     
                         </div>
                       </div>
@@ -109,8 +116,16 @@
                       <div class="card" style="margin-top:20px">
                         <h5 class="card-header">NOTER <div class="float-end"><button style="height: 25px; margin-top: -7px; padding: 0rem 0.75rem;" class="btn btn-danger btn-sm">Ny note</button></div></h5>
                         <div class="card-body">
-                          <p class="card-text">Du har ikke tilføjet nogen noter på denne patient.</p>
-    
+                          <p class="card-text">
+                            <% if(notes.length == 0) { %>
+                                <div class="text-center">
+                                    <span>Der er ingen noter til denne patient</span>
+                                </div>
+                            <% } %>
+                            <% notes.forEach(function(note) { %>
+                                <li><%=note.note%></li>
+                            <% }); %>
+                        </p>
                         </div>
                       </div>
                 </div>
