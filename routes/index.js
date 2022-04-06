@@ -20,5 +20,6 @@ module.exports = function ({ app, dbConn }) {
   // fagperson routes
   app.get('/fagperson', function(req, res) { fagperson.index(req, res, dbConn) });
   app.get('/fagperson/patient/:patient', function(req, res) { fagperson.patient(req, res, dbConn) });
+  app.post('/fagperson/note/', function(req, res) { fagperson.note(req, res, dbConn) });
 
 }; 

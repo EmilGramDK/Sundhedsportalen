@@ -24,7 +24,8 @@ app.use(session({
 // setup view path
 const viewsDirPath = path.join(__dirname, "views");
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", viewsDirPath);
 app.use(express.static(path.join(__dirname, "public")));
