@@ -31,4 +31,7 @@ module.exports = function ({ app, dbConn }) {
   app.post("/fagperson/note/", function (req, res) {
     fagperson.note(req, res, dbConn);
   });
+  app.post("/fagperson/deleteNote", function (req, res) {
+    fagperson.deleteNote(req, res, dbConn);
+  });
 };

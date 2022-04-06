@@ -24,7 +24,7 @@ exports.getPatients = function (userID, dbConn) {
 };
 
 exports.getPatientNotes = function (patientID, userID, dbConn) {
-  const sql = "SELECT note FROM notes WHERE patient = ? AND pro = ?";
+  const sql = "SELECT note, id FROM notes WHERE patient = ? AND pro = ?";
 
   return new Promise((resolve, reject) => {
     dbConn.query(sql, [patientID, userID], function (err, result) {
