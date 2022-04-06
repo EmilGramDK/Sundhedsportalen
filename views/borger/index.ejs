@@ -1,65 +1,69 @@
 <%- include('../header.ejs') %>
 <header class="borger">
-    <div class="container position-relative">
-        <div class="row justify-content-center">
-
-            <div class="row">
-                
-                <div class="col-sm-6">
-                    <div class="text-center text-white">
-                    
-                        <span style="font-size: 13px; font-weight:bold">VELKOMMEN</span><br>
-                        <span style="font-size: 25px; font-weight:bold"><%=user.name%></span><br>
-                        <span style="font-size: 16px; font-weight:bold"><%=user.cpr%></span>
-                    </div>
-
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="text-center text-white">
-                    
-                        <span style="font-size: 13px; font-weight:bold">DIN LÆGE</span><br>
-                        <% places.forEach(function(place) { %>
-                            <span style="font-size: 25px; font-weight:bold"><%=place.name%></span><br>
-                            <span style="font-size: 16px; font-weight:bold"><%=place.address%></span><br>
-                        <% }); %> 
-                    </div>
-                </div>
-
-            </div>
-            
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="text-center text-white">
+            <span style="font-size: 13px; font-weight: bold">VELKOMMEN</span
+            ><br />
+            <span style="font-size: 25px; font-weight: bold"
+              ><%=user.name%></span
+            ><br />
+            <span style="font-size: 16px; font-weight: bold"
+              ><%=user.cpr%></span
+            >
+          </div>
         </div>
+
+        <div class="col-sm-6">
+          <div class="text-center text-white">
+            <span style="font-size: 13px; font-weight: bold">DIN LÆGE</span
+            ><br />
+            <% places.forEach(function(place) { %>
+            <span style="font-size: 25px; font-weight: bold"
+              ><%=place.name%></span
+            ><br />
+            <span style="font-size: 16px; font-weight: bold"
+              ><%=place.address%></span
+            ><br />
+            <% }); %>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </header>
 
 <section>
-    <div class="container" style="padding-top: 4rem;padding-bottom: 4rem;">
-        <div class="row justify-content-center text-center">
-                    
-            <span style="font-size: 30px;">Dine sundhedsdata</span><br><br>
-            <span>Her får du et overblik over dine muligheder for at se data og foretage registreringer, når du er logget ind på Sundhedsportalen.</span>
+  <div class="container" style="padding-top: 4rem; padding-bottom: 4rem">
+    <div class="row justify-content-center text-center">
+      <span style="font-size: 30px">Dine sundhedsdata</span><br /><br />
+      <span
+        >Her får du et overblik over dine muligheder for at se data og foretage
+        registreringer, når du er logget ind på Sundhedsportalen.</span
+      >
 
-            <div class="row" style="padding-top: 2rem;">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <a class="card-header" href="/borger/recepter">
-                            <div class="float-start">Se dine recepter</div>
-                            <div class="float-end"><i class="bi-arrow-right"></i></div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="card">
-                        <a class="card-header" href="/borger/recepter">
-                            <div class="float-start">Se dine recepter</div>
-                            <div class="float-end"><i class="bi-arrow-right"></i></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
+      <div class="row" style="padding-top: 2rem">
+        <div class="col-sm-6">
+          <div class="card">
+            <a class="card-header" href="/borger/recepter">
+              <div class="float-start">Se dine recepter</div>
+              <div class="float-end"><i class="bi-arrow-right"></i></div>
+            </a>
+          </div>
         </div>
+
+        <div class="col-sm-6">
+          <div class="card">
+            <a class="card-header" href="/borger/recepter">
+              <div class="float-start">Se dine recepter</div>
+              <div class="float-end"><i class="bi-arrow-right"></i></div>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 <%- include('../footer.ejs') %>

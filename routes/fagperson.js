@@ -1,152 +1,85 @@
+const {
+  randomNumber,
+  getPatientNotes,
+  getPatients,
+  checkLogin,
+} = require("./functions");
 
-function randomNumber() {
-  return Math.floor(Math.random() * (947932948652987 - 345632 + 1)) + 345632;
-}
-
-function checkLogin(req) {
-
-  if (req.session.loggedin && req.session.fagperson) {
-    return true;
-  }
-
-  return false;
-
-}
-
-function getPatients(userID, dbConn) {
-
-  const sql = "SELECT citizens.id, citizens.CPR, citizens.name FROM roles LEFT JOIN citizens ON citizens.id = roles.user WHERE role = 0 AND roles.place IN (SELECT places.id FROM roles LEFT JOIN places ON places.id = roles.place WHERE roles.user = ? AND roles.role != 0)";
-
-  return new Promise((resolve, reject) => {
-
-    dbConn.query(sql, [userID], function (err, result) {
-
-      if (err) throw err;
-
-      resolve(result);
-
-    });
-
-  });
-}
-
-function getPatientNotes(patientID, userID, dbConn) {
-
-  const sql = "SELECT note FROM notes WHERE patient = ? AND pro = ?";
-
-  return new Promise((resolve, reject) => {
-
-    dbConn.query(sql, [patientID, userID], function (err, result) {
-
-      if (err) throw err;
-
-      resolve(result);
-
-    });
-
-  });
-}  
-
-exports.index = function(req, res, dbConn) {
-
-  if (checkLogin(req)) {
-
+exports.index = function (req, res, dbConn) {
+  if (checkLogin(req, true)) {
     var user = req.session.user;
 
-    const sql = "SELECT places.id, name, address, phone, role FROM roles LEFT JOIN places ON places.id = roles.place WHERE roles.user = ? AND roles.role != 0";
+    const sql =
+      "SELECT places.id, name, address, phone, role FROM roles LEFT JOIN places ON places.id = roles.place WHERE roles.user = ? AND roles.role != 0";
 
-      dbConn.query(sql, [user.id], function (err, result) {
+    dbConn.query(sql, [user.id], function (err, result) {
+      if (err) throw err;
 
-        if (err) throw err;
-         
-        if (result.length > 0) {
-
-          getPatients(user.id, dbConn).then(patients => {
-
-            res.render("./fagperson/index", {
-              user: req.session.user,
-              workplaces: result,
-              patients: patients
-            });
-
+      if (result.length > 0) {
+        getPatients(user.id, dbConn).then((patients) => {
+          res.render("./fagperson/index", {
+            user: req.session.user,
+            workplaces: result,
+            patients: patients,
           });
-
-        } else {
-
-          res.redirect('/logout');
-
-        }
-
-      });
-
+        });
+      } else {
+        res.redirect("/logout");
+      }
+    });
   } else {
-    
-    res.redirect('/fagperson/login');
+    res.redirect("/fagperson/login");
   }
-
 };
 
-exports.patient = function(req, res, dbConn) {
-
-  if (checkLogin(req)) {
-
+exports.patient = function (req, res, dbConn) {
+  if (checkLogin(req, true)) {
     const patient = req.params.patient;
     const info = req.query.info;
 
     const sql = "SELECT id, CPR, name FROM citizens WHERE id = ?";
 
     dbConn.query(sql, [patient], function (err, result) {
-
       if (err) throw err;
 
       if (result.length > 0) {
-
-        getPatientNotes(patient, req.session.user.id, dbConn).then(notes => {
-
+        getPatientNotes(patient, req.session.user.id, dbConn).then((notes) => {
           res.render("./fagperson/patient", {
             user: req.session.user,
             patient: result[0],
             notes: notes,
-            info: info
+            info: info,
           });
-          
         });
-  
-        } else {
-            
-            res.redirect('/fagperson');
-  
-        }
-
+      } else {
+        res.redirect("/fagperson");
+      }
     });
-
   } else {
-    
-    res.redirect('/fagperson/login');
+    res.redirect("/fagperson/login");
   }
+};
 
-}
-
-exports.note = function(req, res, dbConn) {
-
-  if (checkLogin(req)) {
-
+exports.note = function (req, res, dbConn) {
+  if (checkLogin(req, true)) {
     const id = randomNumber();
-    const {note, patient} = req.body;
-    
-    const sql = "INSERT INTO notes (id, pro, patient, note) VALUES (?, ?, ?, ?)";
+    const { note, patient } = req.body;
 
-    dbConn.query(sql, [id, req.session.user.id, patient, note], function (err, result) {
+    const sql =
+      "INSERT INTO notes (id, pro, patient, note) VALUES (?, ?, ?, ?)";
 
-      if (err) throw err;
+    dbConn.query(
+      sql,
+      [id, req.session.user.id, patient, note],
+      function (err, result) {
+        if (err) throw err;
 
-      res.redirect('/fagperson/patient/' + patient + '?info=Noten blev tilføjet');
-
-    });
-
+        res.redirect(
+          "/fagperson/patient/" + patient + "?info=Noten blev tilføjet"
+        );
+      }
+    );
   } else {
-    
-    res.redirect('/fagperson/login');
+    res.redirect("/fagperson/login");
   }
-
-}
+};

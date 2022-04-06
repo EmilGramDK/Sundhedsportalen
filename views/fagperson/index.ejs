@@ -1,124 +1,149 @@
 <%- include('../header.ejs') %>
 <header class="borger">
-    <div class="container position-relative">
-        <div class="row justify-content-center">
-
-            <div style="padding-top: 2rem;padding-bottom: 2rem;" class="text-center text-white">
-                <h1 style="text-transform: uppercase;">VELKOMMEN FAGPERSON</h1>
-                <span style="font-size: 25px; font-weight:bold; text-transform: uppercase;"><%=user.name%></span><br>
-                
-            </div>
-
-        </div>
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div
+        style="padding-top: 2rem; padding-bottom: 2rem"
+        class="text-center text-white"
+      >
+        <h1 style="text-transform: uppercase">VELKOMMEN FAGPERSON</h1>
+        <span
+          style="font-size: 25px; font-weight: bold; text-transform: uppercase"
+          ><%=user.name%></span
+        ><br />
+      </div>
     </div>
+  </div>
 </header>
 
 <section>
-    <div class="container" style="padding-top: 4rem;padding-bottom: 4rem;">
-        <div class="row">
+  <div class="container" style="padding-top: 4rem; padding-bottom: 4rem">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <h5 class="card-header" href="#">
+            <span
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Hooray!"
+              >PATIENTDATA</span
+            >
+          </h5>
 
-            <div class="col-md-8">
+          <div class="card-body">
+            <label for="exampleDataList" class="form-label">Vælg patient</label>
 
-                <div class="card ">
-                    <h5 class="card-header" href="#"><span data-bs-toggle="tooltip" data-bs-placement="top" title="Hooray!">PATIENTDATA</span></h5>
-
-                    <div class="card-body">
-
-                        <label for="exampleDataList" class="form-label">Vælg patient</label>
-                            
-                        <div class="row">
-                            <div class="col">
-                            <input class="form-control datainput" oninput="onChangeDatalistInput()" id="selectPatient" list="myList" placeholder="Søg efter patient...">
-                                <datalist class="datalist">
-                                    <% patients.forEach(function(patient) { %>
-                                        <option data-id="<%=patient.id%>" value="<%=patient.name%>"><%=patient.CPR%></option>
-                                    <% }); %> 
-                                </datalist>
-                              </div>
-                                <div class="col-md-auto">
-                                <button class="btn btn-danger" id="goToPatient">Se patient</button>
-                                </div></div>
-                    </div>
-                  </div>
-
-                  <div class="card" style="margin-top: 20px">
-                      <h5 class="card-header" href="#"><span data-bs-toggle="tooltip" data-bs-placement="top" title="Hooray!">BESKEDER</span></h5>
-
-
-                      <div class="card-body">
-                            
-                        <div class="row">
-
-                            <div class="col-sm-6">
-                                <div class="card">
-                                    <a class="card-header" href="/fagperson/">
-                                        <div class="float-start">Indbakke</div>
-                                        <span class="badge bg-danger" style="margin-left: 5px">5</span>
-                                        <div class="float-end"><i class="bi-arrow-right"></i></div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="card">
-                                    <a class="card-header" href="/fagperson/">
-                                        <div class="float-start">Ny besked</div>
-                                        <div class="float-end"><i class="bi-arrow-right"></i></div>
-                                    </a>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                  </div>
-
-                  <div class="card" style="margin-top: 20px">
-                      <h5 class="card-header" href="#"><span data-bs-toggle="tooltip" data-bs-placement="top" title="Hooray!">DIN PROFIL</span></h5>
-
-                      <div class="card-body">
-                            
-                        <div class="row">
-
-                            <div class="col-sm-6">
-                                <div class="card">
-                                    <a class="card-header" href="/fagperson/">
-                                        <div class="float-start">Indstillinger</div>
-                                        <div class="float-end"><i class="bi-arrow-right"></i></div>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="card">
-                                    <a class="card-header" href="/fagperson/">
-                                        <div class="float-start">Rediger profil</div>
-                                        <div class="float-end"><i class="bi-arrow-right"></i></div>
-                                    </a>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                  </div>
-                
+            <div class="row">
+              <div class="col">
+                <input
+                  class="form-control datainput"
+                  oninput="onChangeDatalistInput()"
+                  id="selectPatient"
+                  list="myList"
+                  placeholder="Søg efter patient..."
+                />
+                <datalist class="datalist">
+                  <% patients.forEach(function(patient) { %>
+                  <option data-id="<%=patient.id%>" value="<%=patient.name%>">
+                    <%=patient.CPR%>
+                  </option>
+                  <% }); %>
+                </datalist>
+              </div>
+              <div class="col-md-auto">
+                <button class="btn btn-danger" id="goToPatient">
+                  Se patient
+                </button>
+              </div>
             </div>
-
-            <div class="col-md-4">
-
-                <div class="card ">
-                    <h5 class="card-header">DINE KLINIKKER</h5>
-                    <div class="card-body">
-
-                    <% workplaces.forEach(function(workplace) { %>
-                      <h6 class="card-title"><%=workplace.name%></h6>
-                      <p class="card-text"><%=workplace.address%><br><%=workplace.phone%></p>
-                      <hr>
-                    <% }); %> 
-
-                    </div>
-                  </div>
-            </div>
+          </div>
         </div>
+
+        <div class="card" style="margin-top: 20px">
+          <h5 class="card-header" href="#">
+            <span
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Hooray!"
+              >BESKEDER</span
+            >
+          </h5>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <a class="card-header" href="/fagperson/">
+                    <div class="float-start">Indbakke</div>
+                    <span class="badge bg-danger" style="margin-left: 5px"
+                      >5</span
+                    >
+                    <div class="float-end"><i class="bi-arrow-right"></i></div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="card">
+                  <a class="card-header" href="/fagperson/">
+                    <div class="float-start">Ny besked</div>
+                    <div class="float-end"><i class="bi-arrow-right"></i></div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px">
+          <h5 class="card-header" href="#">
+            <span
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Hooray!"
+              >DIN PROFIL</span
+            >
+          </h5>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <a class="card-header" href="/fagperson/">
+                    <div class="float-start">Indstillinger</div>
+                    <div class="float-end"><i class="bi-arrow-right"></i></div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="card">
+                  <a class="card-header" href="/fagperson/">
+                    <div class="float-start">Rediger profil</div>
+                    <div class="float-end"><i class="bi-arrow-right"></i></div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <h5 class="card-header">DINE KLINIKKER</h5>
+          <div class="card-body">
+            <% workplaces.forEach(function(workplace) { %>
+            <h6 class="card-title"><%=workplace.name%></h6>
+            <p class="card-text">
+              <%=workplace.address%><br /><%=workplace.phone%>
+            </p>
+            <hr />
+            <% }); %>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 <%- include('../footer.ejs') %>
