@@ -122,9 +122,13 @@
                                     <span>Der er ingen noter til denne patient</span>
                                 </div>
                             <% } %>
-                            <% notes.forEach(function(note) { %>
-                                <li><%=note.note%></li>
-                            <% }); %>
+                            <form action="/fagperson/deleteNote" method="post">
+                                <input type="hidden" name="patient" value="<%=patient.id%>">
+                                <% notes.forEach(function(note) { %>
+                                    <input type="hidden" name="noteId" value="<%=note.id%>">
+                                    <li><%=note.note%> <button class="btn btn-danger btn-sm float-end" type="submit" onclick="return confirm('Er du sikker?')" >X</button> </li>
+                                <% }); %>
+                            </form>
                         </p>
                         </div>
                       </div>

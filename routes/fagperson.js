@@ -83,3 +83,21 @@ exports.note = function (req, res, dbConn) {
     res.redirect("/fagperson/login");
   }
 };
+
+exports.deleteNote = function (req, res, dbConn) {
+  if (checkLogin(req, true)) {
+    const { noteId, patient } = req.body;
+
+    const sql = "DELETE FROM notes WHERE id = ?";
+
+    dbConn.query(sql, [noteId], function (err, result) {
+      if (err) throw err;
+
+      res.redirect(
+        "/fagperson/patient/" + patient + "?info=Noten blev slettet"
+      );
+    });
+  } else {
+    res.redirect("/fagperson/login");
+  }
+};
