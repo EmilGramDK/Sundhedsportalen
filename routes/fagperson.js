@@ -1,4 +1,8 @@
 
+function randomNumber() {
+  return Math.floor(Math.random() * (947932948652987 - 345632 + 1)) + 345632;
+}
+
 function checkLogin(req) {
 
   if (req.session.loggedin && req.session.fagperson) {
@@ -87,6 +91,7 @@ exports.patient = function(req, res, dbConn) {
   if (checkLogin(req)) {
 
     const patient = req.params.patient;
+    const info = req.query.info;
 
     const sql = "SELECT id, CPR, name FROM citizens WHERE id = ?";
 
@@ -101,7 +106,8 @@ exports.patient = function(req, res, dbConn) {
           res.render("./fagperson/patient", {
             user: req.session.user,
             patient: result[0],
-            notes: notes
+            notes: notes,
+            info: info
           });
           
         });
@@ -111,6 +117,30 @@ exports.patient = function(req, res, dbConn) {
             res.redirect('/fagperson');
   
         }
+
+    });
+
+  } else {
+    
+    res.redirect('/fagperson/login');
+  }
+
+}
+
+exports.note = function(req, res, dbConn) {
+
+  if (checkLogin(req)) {
+
+    const id = randomNumber();
+    const {note, patient} = req.body;
+    
+    const sql = "INSERT INTO notes (id, pro, patient, note) VALUES (?, ?, ?, ?)";
+
+    dbConn.query(sql, [id, req.session.user.id, patient, note], function (err, result) {
+
+      if (err) throw err;
+
+      res.redirect('/fagperson/patient/' + patient + '?info=Noten blev tilføjet');
 
     });
 
