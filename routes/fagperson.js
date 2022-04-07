@@ -8,6 +8,7 @@ const {
 exports.index = function (req, res, dbConn) {
   if (checkLogin(req, true)) {
     var user = req.session.user;
+    const alert = req.query.alert;
 
     const sql =
       "SELECT places.id, name, address, phone, role FROM roles LEFT JOIN places ON places.id = roles.place WHERE roles.user = ? AND roles.role != 0";
@@ -21,6 +22,7 @@ exports.index = function (req, res, dbConn) {
             user: req.session.user,
             workplaces: result,
             patients: patients,
+            alert: alert,
           });
         });
       } else {
@@ -35,7 +37,7 @@ exports.index = function (req, res, dbConn) {
 exports.patient = function (req, res, dbConn) {
   if (checkLogin(req, true)) {
     const patient = req.params.patient;
-    const info = req.query.info;
+    const alert = req.query.alert;
 
     const sql = "SELECT id, CPR, name FROM citizens WHERE id = ?";
 
@@ -48,12 +50,30 @@ exports.patient = function (req, res, dbConn) {
             user: req.session.user,
             patient: result[0],
             notes: notes,
-            info: info,
+            alert: alert,
           });
         });
       } else {
         res.redirect("/fagperson");
       }
+    });
+  } else {
+    res.redirect("/fagperson/login");
+  }
+};
+
+exports.indbakke = function (req, res, dbConn) {
+  if (checkLogin(req, true)) {
+    const sql =
+      "SELECT id, pro, patient, message, date, seen, sentBy FROM messages WHERE pro = ? ORDER BY date DESC";
+
+    dbConn.query(sql, [req.session.user.id], function (err, result) {
+      if (err) throw err;
+
+      res.render("./fagperson/indbakke", {
+        user: req.session.user,
+        messages: result,
+      });
     });
   } else {
     res.redirect("/fagperson/login");
@@ -75,12 +95,12 @@ exports.note = function (req, res, dbConn) {
         if (err) throw err;
 
         res.redirect(
-          "/fagperson/patient/" + patient + "?info=Noten blev tilføjet"
+          "/fagperson/patient/" + patient + "?alert=Noten blev tilføjet"
         );
       }
     );
   } else {
-    res.redirect("/fagperson/login");
+    res.send("Du skal være logget ind for at tilføje en note");
   }
 };
 
@@ -94,10 +114,37 @@ exports.deleteNote = function (req, res, dbConn) {
       if (err) throw err;
 
       res.redirect(
-        "/fagperson/patient/" + patient + "?info=Noten blev slettet"
+        "/fagperson/patient/" + patient + "?alert=Noten blev slettet"
       );
     });
   } else {
-    res.redirect("/fagperson/login");
+    res.send("Du skal være logget ind for at slette en note");
+  }
+};
+
+exports.sendMessage = function (req, res, dbConn) {
+  if (checkLogin(req, true)) {
+    const { patient, message } = req.body;
+
+    const sql =
+      "INSERT INTO messages (id, pro, patient, message, sentBy) VALUES (?, ?, ?, ?, ?)";
+
+    dbConn.query(
+      sql,
+      [
+        randomNumber(),
+        req.session.user.id,
+        patient,
+        message,
+        req.session.user.id,
+      ],
+      function (err, result) {
+        if (err) throw err;
+
+        res.redirect("/fagperson/?alert=Besked blev sendt");
+      }
+    );
+  } else {
+    res.send("Du skal være logget ind for at sende en besked");
   }
 };

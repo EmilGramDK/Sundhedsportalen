@@ -1,0 +1,49 @@
+<%- include('../header.ejs') %>
+<header class="borger">
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div
+        style="padding-top: 1rem; padding-bottom: 1rem"
+        class="text-center text-white"
+      >
+        <span style="font-size: 30px">Indbakke</span><br />
+        <span
+          >Her får du et overblik over dine beskeder med dine patienter.</span
+        >
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container" style="padding-top: 4rem; padding-bottom: 4rem">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <h5 class="card-header" href="#">
+            <span
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Her er alle dine beskeder med patienter."
+              >INDBAKKE</span
+            >
+          </h5>
+
+          <div class="card-body">
+            <% messages.forEach(function(message) { %> <%=message.message%> <%
+            }); %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <h5 class="card-header">MENU</h5>
+          <div class="card-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../footer.ejs') %>

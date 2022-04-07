@@ -67,6 +67,35 @@
     >
       <%=locals.info%>
     </div>
+    <% } %> <% if (locals.alert) { %>
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="liveToast"
+        class="toast align-items-center text-white bg-danger border-0"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <img
+            src="/assets/favicon.png"
+            class="rounded me-2"
+            alt="Sundhedsportalen"
+            height="20"
+            width="20"
+          />
+          <strong class="me-auto">Sundhedsportalen</strong>
+          <small>Besked</small>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body"><%=locals.alert%></div>
+      </div>
+    </div>
     <% } %>
   </body>
 </html>

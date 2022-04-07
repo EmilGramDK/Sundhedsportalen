@@ -73,7 +73,7 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="card">
-                  <a class="card-header" href="/fagperson/">
+                  <a class="card-header" href="/fagperson/indbakke">
                     <div class="float-start">Indbakke</div>
                     <span class="badge bg-danger" style="margin-left: 5px"
                       >5</span
@@ -85,7 +85,11 @@
 
               <div class="col-sm-6">
                 <div class="card">
-                  <a class="card-header" href="/fagperson/">
+                  <a
+                    class="card-header"
+                    data-bs-toggle="modal"
+                    data-bs-target="#nyBesked"
+                  >
                     <div class="float-start">Ny besked</div>
                     <div class="float-end"><i class="bi-arrow-right"></i></div>
                   </a>
@@ -146,4 +150,69 @@
     </div>
   </div>
 </section>
+
+<div
+  class="modal fade"
+  id="nyBesked"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Send besked</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <input
+          class="form-control datainputMessage"
+          oninput="onChangeDatalistInputMessage()"
+          id="selectPatientMessage"
+          list="messageList"
+          placeholder="Søg efter patient..."
+        />
+        <datalist class="datalistMessage">
+          <% patients.forEach(function(patient) { %>
+          <option data-id="<%=patient.id%>" value="<%=patient.name%>">
+            <%=patient.CPR%>
+          </option>
+          <% }); %>
+        </datalist>
+
+        <br />
+
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            placeholder="Skriv din besked her"
+            name="message"
+            id="messageTextarea"
+            style="height: 100px"
+          ></textarea>
+          <label for="messageTextarea">Besked</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm"
+          data-bs-dismiss="modal"
+        >
+          Annuller
+        </button>
+        <button type="submit" id="sendBesked" class="btn btn-danger btn-sm">
+          Send besked
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <%- include('../footer.ejs') %>

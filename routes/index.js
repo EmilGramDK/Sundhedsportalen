@@ -28,10 +28,17 @@ module.exports = function ({ app, dbConn }) {
   app.get("/fagperson/patient/:patient", function (req, res) {
     fagperson.patient(req, res, dbConn);
   });
+  app.get("/fagperson/indbakke", function (req, res) {
+    fagperson.indbakke(req, res, dbConn);
+  });
+
   app.post("/fagperson/note/", function (req, res) {
     fagperson.note(req, res, dbConn);
   });
   app.post("/fagperson/deleteNote", function (req, res) {
     fagperson.deleteNote(req, res, dbConn);
+  });
+  app.post("/fagperson/sendMessage", function (req, res) {
+    fagperson.sendMessage(req, res, dbConn);
   });
 };
