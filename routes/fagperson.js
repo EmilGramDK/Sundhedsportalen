@@ -65,14 +65,25 @@ exports.patient = function (req, res, dbConn) {
 exports.indbakke = function (req, res, dbConn) {
   if (checkLogin(req, true)) {
     const sql =
-      "SELECT id, pro, patient, message, date, seen, sentBy FROM messages WHERE pro = ? ORDER BY date DESC";
+      "SELECT id, pro, patient, message, date, seen, sentBy FROM messages WHERE pro = ? ORDER BY date ASC";
 
     dbConn.query(sql, [req.session.user.id], function (err, result) {
       if (err) throw err;
 
+      const patients = [];
+
+      result.forEach((message) => {
+        if (message.seen == 0 && message.sentBy == req.session.user.id) {
+          message.seen = 1;
+        }
+
+        patients[message.patient] = message;
+      });
+
       res.render("./fagperson/indbakke", {
         user: req.session.user,
         messages: result,
+        patients,
       });
     });
   } else {

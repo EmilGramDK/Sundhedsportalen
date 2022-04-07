@@ -30,8 +30,37 @@
           </h5>
 
           <div class="card-body">
-            <% messages.forEach(function(message) { %> <%=message.message%> <%
-            }); %>
+            <% patients.forEach(function(patient) { %>
+            <div class="card">
+              <a
+                class="card-header"
+                data-bs-toggle="collapse"
+                href="#message<%=patient.id%>"
+                role="button"
+                aria-expanded="false"
+              >
+                <div class="float-start"><%=patient.patient%></div>
+
+                <div class="float-end">
+                  <% if(patient.seen == 0) { %>
+                  <span class="badge bg-danger">ULÆST!</span>
+                  <% } else { %>
+                  <span class="badge bg-success">DU SENDTE SIDSTE BESKED</span>
+                  <% } %>
+                  <i class="bi-arrow-down"></i>
+                </div>
+              </a>
+              <div class="collapse" id="message<%=patient.id%>">
+                <div class="card card-body">
+                  <% messages.forEach(function(message) { %>
+                  <h6><%=message.message%></h6>
+                  <br />
+                  <% }); %>
+                </div>
+              </div>
+            </div>
+            <br />
+            <% }); %>
           </div>
         </div>
       </div>
