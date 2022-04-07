@@ -127,7 +127,7 @@
                                     <form action="/fagperson/deleteNote" method="post">
                                         <input type="hidden" name="patient" value="<%=patient.id%>">
                                     <input type="hidden" name="noteId" value="<%=note.id%>">
-                                    <li style="margin-top: 3px;"><%=note.note%> <button style="height: 25px; margin-top: -7px; padding: 0rem 0.75rem;" class="btn btn-danger btn-sm float-end" type="submit" onclick="return confirm('Er du sikker?')" >X</button> </li>
+                                    <li style="margin-top: 3px;"><span style="white-space: pre-line"><%=note.note%></span> <button style="height: 25px; margin-top: -7px; padding: 0rem 0.75rem;" class="btn btn-danger btn-sm float-end" type="submit" onclick="return confirm('Er du sikker?')" >X</button> </li>
                                 </form>
                                 <% }); %>
                             

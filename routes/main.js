@@ -27,7 +27,7 @@ exports.borgerLoginPost = function (req, res, dbConn) {
   const { cpr, password } = req.body;
 
   if (cpr && password) {
-    const sql = "SELECT * FROM citizens WHERE cpr=? AND password=? LIMIT 1";
+    const sql = "SELECT * FROM patients WHERE cpr=? AND password=? LIMIT 1";
 
     dbConn.query(sql, [cpr, password], function (err, result) {
       if (err) throw err;

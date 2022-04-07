@@ -55,6 +55,7 @@ const dbConn = mysql.createConnection({
   user: DB_USER_NAME || "",
   password: DB_USER_PASSWORD || "",
   database: DB_NAME || "",
+  dateStrings: "date",
 });
 
 dbConn.connect(function (err) {

@@ -3,6 +3,7 @@ const {
   getPatientNotes,
   getPatients,
   checkLogin,
+  getPatientName,
 } = require("./functions");
 
 exports.index = function (req, res, dbConn) {
@@ -39,7 +40,7 @@ exports.patient = function (req, res, dbConn) {
     const patient = req.params.patient;
     const alert = req.query.alert;
 
-    const sql = "SELECT id, CPR, name FROM citizens WHERE id = ?";
+    const sql = "SELECT id, CPR, name FROM patients WHERE id = ?";
 
     dbConn.query(sql, [patient], function (err, result) {
       if (err) throw err;
@@ -65,12 +66,12 @@ exports.patient = function (req, res, dbConn) {
 exports.indbakke = function (req, res, dbConn) {
   if (checkLogin(req, true)) {
     const sql =
-      "SELECT id, pro, patient, message, date, seen, sentBy FROM messages WHERE pro = ? ORDER BY date ASC";
+      "SELECT patients.name, messages.id, messages.pro, messages.patient, messages.message, messages.date, messages.seen, messages.sentBy FROM messages LEFT JOIN patients ON patients.id = messages.patient WHERE pro = ? ORDER BY date ASC";
 
     dbConn.query(sql, [req.session.user.id], function (err, result) {
       if (err) throw err;
 
-      const patients = [];
+      let patients = [];
 
       result.forEach((message) => {
         if (message.seen == 0 && message.sentBy == req.session.user.id) {

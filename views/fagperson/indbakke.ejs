@@ -39,7 +39,7 @@
                 role="button"
                 aria-expanded="false"
               >
-                <div class="float-start"><%=patient.patient%></div>
+                <div class="float-start"><%=patient.name%></div>
 
                 <div class="float-end">
                   <% if(patient.seen == 0) { %>
@@ -53,8 +53,15 @@
               <div class="collapse" id="message<%=patient.id%>">
                 <div class="card card-body">
                   <% messages.forEach(function(message) { %>
-                  <h6><%=message.message%></h6>
-                  <br />
+                  <span
+                    ><strong>
+                      <% if(message.sentBy == user.id) { %> <%=user.name%> <% }
+                      else { %> <%=patient.name%> <% } %>
+                    </strong>
+                    <span class="float-end"><%=message.date%></span></span
+                  >
+                  <p><%=message.message%></p>
+                  <hr />
                   <% }); %>
                 </div>
               </div>
