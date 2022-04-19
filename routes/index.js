@@ -20,6 +20,9 @@ module.exports = function ({ app, dbConn }) {
     borger.index(req, res, dbConn);
   });
   app.get("/borger/recepter", borger.recepter);
+  app.post("/borger/sendMessage", function (req, res) {
+    borger.sendMessage(req, res, dbConn);
+  });
 
   // fagperson routes
   app.get("/fagperson", function (req, res) {

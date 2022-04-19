@@ -38,3 +38,17 @@ exports.getPatientNotes = function (patientID, userID, dbConn) {
     });
   });
 };
+
+// funktion til at få alle fagpersonens patienter
+exports.getFagpersoner = function (dbConn) {
+  const sql =
+    "SELECT professionals.id, roles.role, professionals.name, professionals.MAS FROM roles LEFT JOIN professionals ON roles.user = professionals.id WHERE roles.role > 0";
+
+  return new Promise((resolve, reject) => {
+    dbConn.query(sql, [], function (err, result) {
+      if (err) throw err;
+
+      resolve(result);
+    });
+  });
+};
