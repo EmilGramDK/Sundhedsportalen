@@ -1,0 +1,85 @@
+<%- include('../header.ejs') %>
+<header class="borger">
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div
+        style="padding-top: 1rem; padding-bottom: 1rem"
+        class="text-center text-white"
+      >
+        <span style="font-size: 30px">Indbakke</span><br />
+        <span
+          >Her får du et overblik over dine beskeder med dine patienter.</span
+        >
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container" style="padding-top: 4rem; padding-bottom: 4rem">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <h5 class="card-header" href="#">
+            <span
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Her er alle dine beskeder med patienter."
+              >INDBAKKE</span
+            >
+          </h5>
+
+          <div class="card-body">
+            <% patients.forEach(function(patient) { %>
+            <div class="card">
+              <a
+                class="card-header"
+                data-bs-toggle="collapse"
+                href="#message<%=patient.id%>"
+                role="button"
+                aria-expanded="false"
+              >
+                <div class="float-start"><%=patient.name%></div>
+
+                <div class="float-end">
+                  <% if(patient.seen == 0) { %>
+                  <span class="badge bg-danger">ULÆST!</span>
+                  <% } else { %>
+                  <span class="badge bg-success">DU SENDTE SIDSTE BESKED</span>
+                  <% } %>
+                  <i class="bi-arrow-down"></i>
+                </div>
+              </a>
+              <div class="collapse" id="message<%=patient.id%>">
+                <div class="card card-body">
+                  <% messages.forEach(function(message) { %>
+                  <span
+                    ><strong>
+                      <% if(message.sentBy == user.id) { %> <%=user.name%> <% }
+                      else { %> <%=patient.name%> <% } %>
+                    </strong>
+                    <span class="float-end"><%=message.date%></span></span
+                  >
+                  <p><%=message.message%></p>
+                  <hr />
+                  <% }); %>
+                </div>
+              </div>
+            </div>
+            <br />
+            <% }); %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <h5 class="card-header">MENU</h5>
+          <div class="card-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../footer.ejs') %>

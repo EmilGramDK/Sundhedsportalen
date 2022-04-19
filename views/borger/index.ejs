@@ -43,27 +43,220 @@
         >Her får du et overblik over dine muligheder for at se data og foretage
         registreringer, når du er logget ind på Sundhedsportalen.</span
       >
+    </div>
 
-      <div class="row" style="padding-top: 2rem">
-        <div class="col-sm-6">
-          <div class="card">
-            <a class="card-header" href="/borger/recepter">
-              <div class="float-start">Se dine recepter</div>
-              <div class="float-end"><i class="bi-arrow-right"></i></div>
-            </a>
+    <div class="row" style="padding-top: 2rem">
+      <div class="col-sm-12">
+        <div class="card" style="margin-top: 20px">
+          <h5 class="card-header" href="#">
+            <span
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Se dine beskeder!"
+              >SUNDHEDSDATA</span
+            >
+          </h5>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <a class="card-header" href="/borger/journaler">
+                    <div class="float-start">Se dine journaler</div>
+                    <div class="float-end">
+                      <i class="bi-arrow-right"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="card">
+                  <a class="card-header" href="/borger/laboratoriesvar">
+                    <div class="float-start">Se dine laboratoriesvar</div>
+                    <div class="float-end">
+                      <i class="bi-arrow-right"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-sm-6" style="margin-top: 7px">
+                <div class="card">
+                  <a class="card-header" href="/borger/vaccinationer">
+                    <div class="float-start">Se dine vaccinationer</div>
+                    <div class="float-end">
+                      <i class="bi-arrow-right"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-sm-6" style="margin-top: 7px">
+                <div class="card">
+                  <a class="card-header" href="/borger/recepter">
+                    <div class="float-start">Se dine recepter</div>
+                    <div class="float-end">
+                      <i class="bi-arrow-right"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="col-sm-6">
-          <div class="card">
-            <a class="card-header" href="/borger/recepter">
-              <div class="float-start">Se dine recepter</div>
-              <div class="float-end"><i class="bi-arrow-right"></i></div>
-            </a>
+      <div class="col-sm-6">
+        <div class="card" style="margin-top: 20px">
+          <h5 class="card-header" href="#">
+            <span
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Se dine beskeder!"
+              >BESKEDER</span
+            >
+          </h5>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <a class="card-header" href="/borger/indbakke">
+                    <div class="float-start">Indbakke</div>
+                    <span class="badge bg-danger" style="margin-left: 5px"
+                      >5</span
+                    >
+                    <div class="float-end">
+                      <i class="bi-arrow-right"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="card">
+                  <a
+                    class="card-header"
+                    data-bs-toggle="modal"
+                    data-bs-target="#nyBesked"
+                  >
+                    <div class="float-start">Ny besked</div>
+                    <div class="float-end">
+                      <i class="bi-arrow-right"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="card" style="margin-top: 20px">
+          <h5 class="card-header" href="#">
+            <span
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Rediger og se dine profil indstillinger!"
+              >DIN PROFIL</span
+            >
+          </h5>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <a class="card-header" href="/borger/">
+                    <div class="float-start">Indstillinger</div>
+                    <div class="float-end"><i class="bi-arrow-right"></i></div>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="card">
+                  <a class="card-header" href="/borger/">
+                    <div class="float-start">Rediger profil</div>
+                    <div class="float-end"><i class="bi-arrow-right"></i></div>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<div
+  class="modal fade"
+  id="nyBesked"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Send besked</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <input
+          class="form-control datainputMessage"
+          oninput="onChangeDatalistInputMessage()"
+          id="selectFagpersonMessage"
+          list="messageList"
+          placeholder="Søg efter patient..."
+        />
+        <datalist class="datalistMessage">
+          <% fagpersoner.forEach(function(fagperson) { %>
+          <option data-id="<%=fagperson.id%>" value="<%=fagperson.name%>">
+            <%=fagperson.MAS%>
+          </option>
+          <% }); %>
+        </datalist>
+
+        <br />
+
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            placeholder="Skriv din besked her"
+            name="message"
+            id="messageTextarea"
+            style="height: 100px"
+          ></textarea>
+          <label for="messageTextarea">Besked</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm"
+          data-bs-dismiss="modal"
+        >
+          Annuller
+        </button>
+        <button
+          type="submit"
+          id="sendBeskedBorger"
+          class="btn btn-danger btn-sm"
+        >
+          Send besked
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <%- include('../footer.ejs') %>
