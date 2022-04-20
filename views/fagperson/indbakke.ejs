@@ -52,7 +52,8 @@
               </a>
               <div class="collapse" id="message<%=patient.id%>">
                 <div class="card card-body">
-                  <% messages.forEach(function(message) { %>
+                  <% messages.forEach(function(message) { if(message.patient ==
+                  patient.patient) { %>
                   <span
                     ><strong>
                       <% if(message.sentBy == user.id) { %> <%=user.name%> <% }
@@ -62,7 +63,28 @@
                   >
                   <p><%=message.message%></p>
                   <hr />
-                  <% }); %>
+                  <% } }); %>
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="form-floating">
+                        <textarea
+                          class="form-control"
+                          placeholder="Skriv en besked..."
+                          id="floatingTextarea2"
+                          style="height: 60px"
+                        ></textarea>
+                        <label for="floatingTextarea2"
+                          >Skriv en besked...</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-danger btn-sm" type="submit">
+                        <i class="bi-chat-bubble-text"></i>
+                        <span>SEND BESKED</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
