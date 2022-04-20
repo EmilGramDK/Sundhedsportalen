@@ -27,7 +27,8 @@ exports.borgerLoginPost = function (req, res, dbConn) {
   const { cpr, password } = req.body;
 
   if (cpr && password) {
-    const sql = "SELECT * FROM patients WHERE cpr=? AND password=? LIMIT 1";
+    const sql =
+      "SELECT id, name, CPR FROM patients WHERE cpr=? AND password=? LIMIT 1";
 
     dbConn.query(sql, [cpr, password], function (err, result) {
       if (err) throw err;
@@ -43,9 +44,6 @@ exports.borgerLoginPost = function (req, res, dbConn) {
           id: result[0].id,
           name: result[0].name,
           cpr: secure_cpr,
-          practitioner: result[0].practitioner,
-          gender: result[0].gender,
-          birthday: result[0].birthday,
         };
 
         res.redirect("/borger");
@@ -75,7 +73,7 @@ exports.fagpersonLoginPost = function (req, res, dbConn) {
 
   if (cpr && password) {
     const sql =
-      "SELECT * FROM professionals WHERE MAS=? AND password=? LIMIT 1";
+      "SELECT id, name, MAS FROM professionals WHERE MAS=? AND password=? LIMIT 1";
 
     dbConn.query(sql, [cpr, password], function (err, result) {
       if (err) throw err;
@@ -91,8 +89,6 @@ exports.fagpersonLoginPost = function (req, res, dbConn) {
           id: result[0].id,
           name: result[0].name,
           mas: secure_mas,
-          gender: result[0].gender,
-          birthday: result[0].birthday,
         };
 
         res.redirect("/fagperson");
