@@ -1,3 +1,5 @@
+const { use } = require("express/lib/application");
+
 // funktion til at generere et random tal
 exports.randomNumber = function () {
   return Math.floor(Math.random() * (947932948652987 - 345632 + 1)) + 345632;
@@ -69,11 +71,83 @@ exports.countPatientMessages = function (userID, dbConn) {
 
 // funktion til at tælle antal ulæste beskeder
 exports.countFagpersonMessages = function (userID, dbConn) {
+  console.log(userID);
+
   const sql =
     "SELECT COUNT(*) AS count FROM messages WHERE pro = ? AND sentBy != ? AND seen = 0";
 
   return new Promise((resolve, reject) => {
     dbConn.query(sql, [userID, userID], function (err, result) {
+      if (err) throw err;
+
+      resolve(result);
+    });
+  });
+};
+
+// funktion til at markere beskeder som læst
+exports.markMessagesAsSeenFagperson = function (userID, dbConn) {
+  const sql = "UPDATE messages SET seen = 1 WHERE pro = ? AND sentBy != ?";
+
+  dbConn.query(sql, [userID, userID], function (err, result) {
+    if (err) throw err;
+  });
+};
+
+// funktion til at markere beskeder som læst
+exports.markMessagesAsSeenPatient = function (userID, dbConn) {
+  const sql = "UPDATE messages SET seen = 1 WHERE patient = ? AND sentBy != ?";
+
+  dbConn.query(sql, [userID, userID], function (err, result) {
+    if (err) throw err;
+  });
+};
+
+// funktion til at hente patientens recepter
+exports.getPatientReceipts = function (patientID, dbConn) {
+  const sql = "SELECT * FROM receipts WHERE patient = ?";
+
+  return new Promise((resolve, reject) => {
+    dbConn.query(sql, [patientID], function (err, result) {
+      if (err) throw err;
+
+      resolve(result);
+    });
+  });
+};
+
+// funktion til at hente patientens journaler
+exports.getPatientJournals = function (patientID, dbConn) {
+  const sql = "SELECT * FROM journals WHERE patient = ?";
+
+  return new Promise((resolve, reject) => {
+    dbConn.query(sql, [patientID], function (err, result) {
+      if (err) throw err;
+
+      resolve(result);
+    });
+  });
+};
+
+// funktion til at hente patientens laboratoiresvar
+exports.getPatientLaboratories = function (patientID, dbConn) {
+  const sql = "SELECT * FROM laboratories WHERE patient = ?";
+
+  return new Promise((resolve, reject) => {
+    dbConn.query(sql, [patientID], function (err, result) {
+      if (err) throw err;
+
+      resolve(result);
+    });
+  });
+};
+
+// funktion til at hente patientens vaccinationer
+exports.getPatientVaccinations = function (patientID, dbConn) {
+  const sql = "SELECT * FROM vaccinations WHERE patient = ?";
+
+  return new Promise((resolve, reject) => {
+    dbConn.query(sql, [patientID], function (err, result) {
       if (err) throw err;
 
       resolve(result);

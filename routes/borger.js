@@ -3,6 +3,7 @@ const {
   getFagpersoner,
   randomNumber,
   countPatientMessages,
+  markMessagesAsSeenPatient,
 } = require("./functions");
 
 exports.index = function (req, res, dbConn) {

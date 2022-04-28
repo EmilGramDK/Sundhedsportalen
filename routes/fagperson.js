@@ -1,3 +1,4 @@
+const { recepter } = require("./borger");
 const {
   randomNumber,
   getPatientNotes,
@@ -5,6 +6,11 @@ const {
   checkLogin,
   getPatientName,
   countFagpersonMessages,
+  markMessagesAsSeenFagperson,
+  getPatientReceipts,
+  getPatientJournals,
+  getPatientLaboratories,
+  getPatientVaccinations,
 } = require("./functions");
 
 exports.index = function (req, res, dbConn) {
@@ -67,6 +73,34 @@ exports.patient = function (req, res, dbConn) {
   }
 };
 
+exports.receipts = function (req, res, dbConn) {
+  if (checkLogin(req, true)) {
+    const patient = req.params.patient;
+    const alert = req.query.alert;
+
+    const sql = "SELECT id, CPR, name FROM patients WHERE id = ?";
+
+    dbConn.query(sql, [patient], function (err, result) {
+      if (err) throw err;
+
+      if (result.length > 0) {
+        getPatientReceipts(patient, dbConn).then((receipts) => {
+          res.render("./fagperson/receipts", {
+            user: req.session.user,
+            patient: result[0],
+            receipts: receipts,
+            alert: alert,
+          });
+        });
+      } else {
+        res.redirect("/fagperson");
+      }
+    });
+  } else {
+    res.redirect("/fagperson/login");
+  }
+};
+
 exports.indbakke = function (req, res, dbConn) {
   if (checkLogin(req, true)) {
     const sql =
@@ -98,6 +132,8 @@ exports.indbakke = function (req, res, dbConn) {
         if (keyA > keyB) return 1;
         return 0;
       });
+
+      markMessagesAsSeenFagperson(req.session.user.id, dbConn);
 
       res.render("./fagperson/indbakke", {
         user: req.session.user,

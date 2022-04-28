@@ -34,6 +34,9 @@ module.exports = function ({ app, dbConn }) {
   app.get("/fagperson/indbakke", function (req, res) {
     fagperson.indbakke(req, res, dbConn);
   });
+  app.get("/fagperson/receipts/:patient", function (req, res) {
+    fagperson.receipts(req, res, dbConn);
+  });
 
   app.post("/fagperson/note/", function (req, res) {
     fagperson.note(req, res, dbConn);
