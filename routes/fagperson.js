@@ -72,13 +72,27 @@ exports.indbakke = function (req, res, dbConn) {
       if (err) throw err;
 
       let patients = [];
+      let i = 0;
 
       result.forEach((message) => {
         if (message.seen == 0 && message.sentBy == req.session.user.id) {
           message.seen = 1;
         }
 
-        patients[message.patient] = message;
+        if (patients.length > 0 && message.patient != patients[i].patient) {
+          i++;
+        }
+
+        patients[i] = message;
+      });
+
+      patients.sort(function (b, a) {
+        var keyA = new Date(a.date),
+          keyB = new Date(b.date);
+        // Compare the 2 dates
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
       });
 
       res.render("./fagperson/indbakke", {
