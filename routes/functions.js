@@ -52,3 +52,31 @@ exports.getFagpersoner = function (dbConn) {
     });
   });
 };
+
+// funktion til at tælle antal ulæste beskeder
+exports.countPatientMessages = function (userID, dbConn) {
+  const sql =
+    "SELECT COUNT(*) AS count FROM messages WHERE patient = ? AND sentBy != ? AND seen = 0";
+
+  return new Promise((resolve, reject) => {
+    dbConn.query(sql, [userID, userID], function (err, result) {
+      if (err) throw err;
+
+      resolve(result);
+    });
+  });
+};
+
+// funktion til at tælle antal ulæste beskeder
+exports.countFagpersonMessages = function (userID, dbConn) {
+  const sql =
+    "SELECT COUNT(*) AS count FROM messages WHERE pro = ? AND sentBy != ? AND seen = 0";
+
+  return new Promise((resolve, reject) => {
+    dbConn.query(sql, [userID, userID], function (err, result) {
+      if (err) throw err;
+
+      resolve(result);
+    });
+  });
+};

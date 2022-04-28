@@ -4,6 +4,7 @@ const {
   getPatients,
   checkLogin,
   getPatientName,
+  countFagpersonMessages,
 } = require("./functions");
 
 exports.index = function (req, res, dbConn) {
@@ -19,11 +20,14 @@ exports.index = function (req, res, dbConn) {
 
       if (result.length > 0) {
         getPatients(user.id, dbConn).then((patients) => {
-          res.render("./fagperson/index", {
-            user: req.session.user,
-            workplaces: result,
-            patients: patients,
-            alert: alert,
+          countFagpersonMessages(user.id, dbConn).then((messages) => {
+            res.render("./fagperson/index", {
+              user: req.session.user,
+              workplaces: result,
+              patients: patients,
+              alert: alert,
+              messages: messages[0].count,
+            });
           });
         });
       } else {
