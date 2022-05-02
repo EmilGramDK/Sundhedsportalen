@@ -104,8 +104,9 @@ exports.markMessagesAsSeenPatient = function (userID, dbConn) {
 };
 
 // funktion til at hente patientens recepter
-exports.getPatientReceipts = function (patientID, dbConn) {
-  const sql = "SELECT * FROM receipts WHERE patient = ?";
+exports.getPatientrecipes = function (patientID, dbConn) {
+  const sql =
+    "SELECT patient, medicine, description, pickedup, title, date FROM recipes LEFT JOIN medicine ON medicine.id = recipes.medicine WHERE patient = ?";
 
   return new Promise((resolve, reject) => {
     dbConn.query(sql, [patientID], function (err, result) {

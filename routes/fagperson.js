@@ -7,7 +7,7 @@ const {
   getPatientName,
   countFagpersonMessages,
   markMessagesAsSeenFagperson,
-  getPatientReceipts,
+  getPatientrecipes,
   getPatientJournals,
   getPatientLaboratories,
   getPatientVaccinations,
@@ -73,7 +73,7 @@ exports.patient = function (req, res, dbConn) {
   }
 };
 
-exports.receipts = function (req, res, dbConn) {
+exports.recipes = function (req, res, dbConn) {
   if (checkLogin(req, true)) {
     const patient = req.params.patient;
     const alert = req.query.alert;
@@ -84,11 +84,11 @@ exports.receipts = function (req, res, dbConn) {
       if (err) throw err;
 
       if (result.length > 0) {
-        getPatientReceipts(patient, dbConn).then((receipts) => {
-          res.render("./fagperson/receipts", {
+        getPatientrecipes(patient, dbConn).then((recipes) => {
+          res.render("./fagperson/recipes", {
             user: req.session.user,
             patient: result[0],
-            receipts: receipts,
+            recipes: recipes,
             alert: alert,
           });
         });
