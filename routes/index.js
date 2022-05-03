@@ -1,3 +1,4 @@
+const main = require("./main");
 module.exports = function ({ app, dbConn }) {
   var main = require("./main");
   var borger = require("./borger");
@@ -46,5 +47,11 @@ module.exports = function ({ app, dbConn }) {
   });
   app.post("/fagperson/sendMessage", function (req, res) {
     fagperson.sendMessage(req, res, dbConn);
+  });
+  app.get("/main/nySide", function (req, res) {
+    main.nySide(req, res, dbConn);
+  });
+  app.get("/main/nySide2", function (req, res) {
+    main.nySide2(req, res, dbConn);
   });
 };
