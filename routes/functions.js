@@ -155,3 +155,16 @@ exports.getPatientVaccinations = function (patientID, dbConn) {
     });
   });
 };
+
+// funktion til at hente alt medicin
+exports.getMedicine = function (dbConn) {
+  const sql = "SELECT * FROM medicine";
+
+  return new Promise((resolve, reject) => {
+    dbConn.query(sql, [], function (err, result) {
+      if (err) throw err;
+
+      resolve(result);
+    });
+  });
+};

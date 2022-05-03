@@ -11,6 +11,7 @@ const {
   getPatientJournals,
   getPatientLaboratories,
   getPatientVaccinations,
+  getMedicine,
 } = require("./functions");
 
 exports.index = function (req, res, dbConn) {
@@ -57,11 +58,14 @@ exports.patient = function (req, res, dbConn) {
 
       if (result.length > 0) {
         getPatientNotes(patient, req.session.user.id, dbConn).then((notes) => {
-          res.render("./fagperson/patient", {
-            user: req.session.user,
-            patient: result[0],
-            notes: notes,
-            alert: alert,
+          getMedicine(dbConn).then((medicine) => {
+            res.render("./fagperson/patient", {
+              user: req.session.user,
+              patient: result[0],
+              notes: notes,
+              alert: alert,
+              medicine: medicine,
+            });
           });
         });
       } else {
@@ -212,5 +216,28 @@ exports.sendMessage = function (req, res, dbConn) {
     );
   } else {
     res.send("Du skal være logget ind for at sende en besked");
+  }
+};
+
+exports.addRecipe = function (req, res, dbConn) {
+  if (checkLogin(req, true)) {
+    const { medicine, patient, message } = req.body;
+
+    const sql =
+      "INSERT INTO recipes (id, patient, medicine, description) VALUES (?, ?, ?, ?)";
+
+    dbConn.query(
+      sql,
+      [randomNumber(), patient, medicine, message],
+      function (err, result) {
+        if (err) throw err;
+
+        res.redirect(
+          "/fagperson/patient/" + patient + "?alert=Receptet blev tilføjet"
+        );
+      }
+    );
+  } else {
+    res.send("Du skal være logget ind for at tilføje et recept");
   }
 };

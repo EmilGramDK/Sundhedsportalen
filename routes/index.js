@@ -48,6 +48,9 @@ module.exports = function ({ app, dbConn }) {
   app.post("/fagperson/sendMessage", function (req, res) {
     fagperson.sendMessage(req, res, dbConn);
   });
+  app.post("/fagperson/addRecipe", function (req, res) {
+    fagperson.addRecipe(req, res, dbConn);
+  });
   app.get("/main/nySide", function (req, res) {
     main.nySide(req, res, dbConn);
   });

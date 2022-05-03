@@ -86,6 +86,36 @@ $("#sendBeskedBorger").click(function () {
   }
 });
 
+// newRecipe button
+$("#newRecipe").click(function () {
+  var value = $("#selectPatientMessage").val();
+
+  var medicine = $('#messageList [value="' + value + '"]').attr("data-id");
+  var message = $("textarea#recipeTextarea").val();
+  var patient = $("input#patientID").val();
+
+  if (message === "" || patient === "" || medicine === "") {
+    alert("Du skal skrive en beskrivelse og vælge medicin");
+  } else {
+    $.ajax({
+      url: "/fagperson/addRecipe",
+      type: "POST",
+      data: {
+        patient: patient,
+        medicine: medicine,
+        message: message,
+      },
+      success: function (data) {
+        window.location.href =
+          "/fagperson/patient/" + patient + "?alert=Recepten blev tilføjet";
+      },
+      error: function (data) {
+        alert("Der skete en fejl");
+      },
+    });
+  }
+});
+
 // bootstrap enabler
 var tooltipTriggerList = [].slice.call(
   document.querySelectorAll('[data-bs-toggle="tooltip"]')

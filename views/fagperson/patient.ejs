@@ -151,7 +151,8 @@
         </div>
         <div class="modal-body">
 
-            <input class="form-control" type="text" name="patient" value="<%=patient.name%>" disabled>
+            <input class="form-control" type="text" value="<%=patient.name%>" disabled>
+            <input class="form-control" type="hidden" id="patientID" name="patient" value="<%=patient.id%>">
             <br>
             <input
               class="form-control datainputMessage"
@@ -161,9 +162,10 @@
               placeholder="Søg efter medicin..."
             />
             <datalist class="datalistMessage">
-              
-                <option data-id="1234" value="Primcillin 800mg"> </option>
-                <option data-id="12345" value="Primcillin 400mg"> </option>
+
+                <% medicine.forEach(function(medicin) { %>
+                    <option data-id="<%=medicin.id%>" value="<%=medicin.title%>" />
+                <% }); %> 
             </datalist>
     
             <br />
@@ -173,15 +175,15 @@
                 class="form-control"
                 placeholder="Beskrivelse.."
                 name="message"
-                id="messageTextarea"
+                id="recipeTextarea"
                 style="height: 100px"
               ></textarea>
-              <label for="messageTextarea">Beskrivelse</label>
+              <label for="recipeTextarea">Beskrivelse</label>
             </div>
           </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Annuller</button>
-          <button type="submit" class="btn btn-danger btn-sm">Tilføj recept</button>
+          <button type="submit" id="newRecipe" class="btn btn-danger btn-sm">Tilføj recept</button>
         </div>
       </div>
     </div>
