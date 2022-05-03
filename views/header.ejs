@@ -29,28 +29,63 @@
   </head>
   <body>
     <!-- Navigation-->
-    <nav class="navbar navbar-light bg-light static-top">
-      <div class="container" style="padding-top: 10px; padding-bottom: 10px">
-        <a class="navbar-brand" href="/"
-          ><i class="bi-bandaid-fill"></i> Sundhedsportalen</a
-        >
-        <% if (!locals.user) { %>
-        <div class="float-end">
-          <a class="btn btn-danger btn-sm" href="/borger/login"
-            >LOG PÅ SOM BORGER</a
-          >
-          <a class="btn btn-primary btn-sm" href="/fagperson/login"
-            >FAGPERSON</a
-          >
+    <header>
+      <div class="collapse bg-light" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4>Info sider</h4>
+              <ul class="list-unstyled">
+                <li><a href="/main/nySide">nySide</a></li>
+                <li><a href="/main/nySide2">nySide2</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4></h4>
+              <ul class="list-unstyled">
+                <li><a href="#">Follow on Twitter</a></li>
+                <li><a href="#">Like on Facebook</a></li>
+                <li><a href="#">Email me</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <% } else { %>
-        <div class="float-end">
-          <a class="btn btn-danger btn-sm" href="/logout">Log ud</a>
-        </div>
-        <% } %>
       </div>
-    </nav>
+      <nav class="navbar navbar-light bg-light static-top">
+        <div class="container" style="padding-top: 10px; padding-bottom: 10px">
+          <a class="navbar-brand" href="/"
+            ><i class="bi-bandaid-fill"></i> Sundhedsportalen</a
+          >
 
+          <div class="float-end">
+            <% if (!locals.user) { %>
+
+            <a class="btn btn-danger btn-sm" href="/borger/login"
+              >LOG PÅ SOM BORGER</a
+            >
+            <a class="btn btn-primary btn-sm" href="/fagperson/login"
+              >FAGPERSON</a
+            >
+
+            <% } else { %>
+
+            <a class="btn btn-danger btn-sm" href="/logout">Log ud</a>
+
+            <% } %>
+            <a
+              class="navbar-toggler btn"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarHeader"
+              aria-controls="navbarHeader"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
     <% if (locals.error) { %>
     <div
       class="alert alert-danger text-center"
@@ -71,7 +106,7 @@
     <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
       <div
         id="liveToast"
-        class="toast align-items-center text-white bg-danger border-0"
+        class="toast align-items-center text-black bg-danger border-0"
         role="alert"
         aria-live="assertive"
         aria-atomic="true"

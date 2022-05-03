@@ -1,4 +1,10 @@
-const { checkLogin, getFagpersoner, randomNumber } = require("./functions");
+const {
+  checkLogin,
+  getFagpersoner,
+  randomNumber,
+  countPatientMessages,
+  markMessagesAsSeenPatient,
+} = require("./functions");
 
 exports.index = function (req, res, dbConn) {
   if (checkLogin(req)) {
@@ -12,10 +18,13 @@ exports.index = function (req, res, dbConn) {
 
       if (result.length > 0) {
         getFagpersoner(dbConn).then((fagpersoner) => {
-          res.render("./borger/index", {
-            user: req.session.user,
-            places: result,
-            fagpersoner: fagpersoner,
+          countPatientMessages(user.id, dbConn).then((messages) => {
+            res.render("./borger/index", {
+              user: req.session.user,
+              places: result,
+              fagpersoner: fagpersoner,
+              messages: messages[0].count,
+            });
           });
         });
       }

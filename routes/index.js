@@ -1,3 +1,4 @@
+const main = require("./main");
 module.exports = function ({ app, dbConn }) {
   var main = require("./main");
   var borger = require("./borger");
@@ -34,6 +35,9 @@ module.exports = function ({ app, dbConn }) {
   app.get("/fagperson/indbakke", function (req, res) {
     fagperson.indbakke(req, res, dbConn);
   });
+  app.get("/fagperson/recipes/:patient", function (req, res) {
+    fagperson.recipes(req, res, dbConn);
+  });
 
   app.post("/fagperson/note/", function (req, res) {
     fagperson.note(req, res, dbConn);
@@ -43,5 +47,14 @@ module.exports = function ({ app, dbConn }) {
   });
   app.post("/fagperson/sendMessage", function (req, res) {
     fagperson.sendMessage(req, res, dbConn);
+  });
+  app.post("/fagperson/addRecipe", function (req, res) {
+    fagperson.addRecipe(req, res, dbConn);
+  });
+  app.get("/main/nySide", function (req, res) {
+    main.nySide(req, res, dbConn);
+  });
+  app.get("/main/nySide2", function (req, res) {
+    main.nySide2(req, res, dbConn);
   });
 };

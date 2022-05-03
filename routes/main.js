@@ -10,6 +10,13 @@ exports.index = function (req, res) {
   }
 };
 
+exports.nySide = function (req, res) {
+    res.render("./main/nySide");
+};
+exports.nySide2 = function (req, res) {
+    res.render("./main/nySide2");
+};
+
 exports.logout = function (req, res) {
   req.session.loggedin = false;
   res.redirect("/");

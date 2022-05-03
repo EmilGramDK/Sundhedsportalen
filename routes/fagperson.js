@@ -1,9 +1,17 @@
+const { recepter } = require("./borger");
 const {
   randomNumber,
   getPatientNotes,
   getPatients,
   checkLogin,
   getPatientName,
+  countFagpersonMessages,
+  markMessagesAsSeenFagperson,
+  getPatientrecipes,
+  getPatientJournals,
+  getPatientLaboratories,
+  getPatientVaccinations,
+  getMedicine,
 } = require("./functions");
 
 exports.index = function (req, res, dbConn) {
@@ -19,11 +27,14 @@ exports.index = function (req, res, dbConn) {
 
       if (result.length > 0) {
         getPatients(user.id, dbConn).then((patients) => {
-          res.render("./fagperson/index", {
-            user: req.session.user,
-            workplaces: result,
-            patients: patients,
-            alert: alert,
+          countFagpersonMessages(user.id, dbConn).then((messages) => {
+            res.render("./fagperson/index", {
+              user: req.session.user,
+              workplaces: result,
+              patients: patients,
+              alert: alert,
+              messages: messages[0].count,
+            });
           });
         });
       } else {
@@ -47,10 +58,41 @@ exports.patient = function (req, res, dbConn) {
 
       if (result.length > 0) {
         getPatientNotes(patient, req.session.user.id, dbConn).then((notes) => {
-          res.render("./fagperson/patient", {
+          getMedicine(dbConn).then((medicine) => {
+            res.render("./fagperson/patient", {
+              user: req.session.user,
+              patient: result[0],
+              notes: notes,
+              alert: alert,
+              medicine: medicine,
+            });
+          });
+        });
+      } else {
+        res.redirect("/fagperson");
+      }
+    });
+  } else {
+    res.redirect("/fagperson/login");
+  }
+};
+
+exports.recipes = function (req, res, dbConn) {
+  if (checkLogin(req, true)) {
+    const patient = req.params.patient;
+    const alert = req.query.alert;
+
+    const sql = "SELECT id, CPR, name FROM patients WHERE id = ?";
+
+    dbConn.query(sql, [patient], function (err, result) {
+      if (err) throw err;
+
+      if (result.length > 0) {
+        getPatientrecipes(patient, dbConn).then((recipes) => {
+          res.render("./fagperson/recipes", {
             user: req.session.user,
             patient: result[0],
-            notes: notes,
+            recipes: recipes,
             alert: alert,
           });
         });
@@ -94,6 +136,8 @@ exports.indbakke = function (req, res, dbConn) {
         if (keyA > keyB) return 1;
         return 0;
       });
+
+      markMessagesAsSeenFagperson(req.session.user.id, dbConn);
 
       res.render("./fagperson/indbakke", {
         user: req.session.user,
@@ -172,5 +216,28 @@ exports.sendMessage = function (req, res, dbConn) {
     );
   } else {
     res.send("Du skal være logget ind for at sende en besked");
+  }
+};
+
+exports.addRecipe = function (req, res, dbConn) {
+  if (checkLogin(req, true)) {
+    const { medicine, patient, message } = req.body;
+
+    const sql =
+      "INSERT INTO recipes (id, patient, medicine, description) VALUES (?, ?, ?, ?)";
+
+    dbConn.query(
+      sql,
+      [randomNumber(), patient, medicine, message],
+      function (err, result) {
+        if (err) throw err;
+
+        res.redirect(
+          "/fagperson/patient/" + patient + "?alert=Receptet blev tilføjet"
+        );
+      }
+    );
+  } else {
+    res.send("Du skal være logget ind for at tilføje et recept");
   }
 };
