@@ -1,12 +1,64 @@
 <%- include('../header.ejs') %>
-<header class="masthead">
+
+<header class="borger">
   <div class="container position-relative">
     <div class="row justify-content-center">
-      <div class="text-center text-white">
-        <!-- Page heading-->
-        <h1 class="mb-5">Recepter</h1>
+      <div
+        style="padding-top: 1rem; padding-bottom: 1rem"
+        class="text-center text-white"
+      >
+        <span style="font-size: 30px">Dine recepter</span><br />
+        <span>Her får du et overblik over dine recepter.</span>
       </div>
     </div>
   </div>
 </header>
+
+<section>
+  <div class="container" style="padding-top: 4rem; padding-bottom: 4rem">
+    <a href="/borger" class="btn btn-danger btn-sm">Tilbage</a>
+
+    <div class="row" style="margin-top: 15px">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <h5 class="card-header">RECEPTER</h5>
+
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Startdato</th>
+                    <th scope="col">Lægemiddel</th>
+                    <th scope="col">Beskrivelse</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% recipes.forEach(function(recipe) { %>
+                  <tr>
+                    <td><%= recipe.date %></td>
+                    <td><%= recipe.title %></td>
+                    <td><%= recipe.description %></td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card">
+            <h5 class="card-header">BORGER</h5>
+            <div class="card-body">
+              <h6 class="card-title"><%=patient.name%></h6>
+              <p class="card-text"><%=patient.cpr%></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <%- include('../footer.ejs') %>
