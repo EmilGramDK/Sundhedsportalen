@@ -4,6 +4,7 @@ const {
   randomNumber,
   countPatientMessages,
   markMessagesAsSeenPatient,
+  getPatientrecipes,
 } = require("./functions");
 
 exports.index = function (req, res, dbConn) {
@@ -34,10 +35,13 @@ exports.index = function (req, res, dbConn) {
   }
 };
 
-exports.recepter = function (req, res) {
+exports.recepter = function (req, res, dbConn) {
   if (checkLogin(req)) {
-    res.render("./borger/recepter", {
-      user: req.session.user,
+    getPatientrecipes(req.session.user.id, dbConn).then((recipes) => {
+      res.render("./borger/recepter", {
+        patient: req.session.user,
+        recipes: recipes,
+      });
     });
   } else {
     res.redirect("/borger/login");
