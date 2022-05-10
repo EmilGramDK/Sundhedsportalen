@@ -14,6 +14,12 @@ module.exports = function ({ app, dbConn }) {
   app.post("/fagperson/login", function (req, res) {
     main.fagpersonLoginPost(req, res, dbConn);
   });
+  app.get("/main/nySide", function (req, res) {
+    main.nySide(req, res, dbConn);
+  });
+  app.get("/main/nySide2", function (req, res) {
+    main.nySide2(req, res, dbConn);
+  });
   app.get("/logout", main.logout);
 
   // borger routes
@@ -52,11 +58,5 @@ module.exports = function ({ app, dbConn }) {
   });
   app.post("/fagperson/addRecipe", function (req, res) {
     fagperson.addRecipe(req, res, dbConn);
-  });
-  app.get("/main/nySide", function (req, res) {
-    main.nySide(req, res, dbConn);
-  });
-  app.get("/main/nySide2", function (req, res) {
-    main.nySide2(req, res, dbConn);
   });
 };
