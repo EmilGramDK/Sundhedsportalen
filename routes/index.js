@@ -20,6 +20,9 @@ module.exports = function ({ app, dbConn }) {
   app.get("/main/nySide2", function (req, res) {
     main.nySide2(req, res, dbConn);
   });
+  app.get("/main/letSprog", function (req, res) {
+    main.letSprog(req, res, dbConn);
+  });
   app.get("/logout", main.logout);
 
   // borger routes
