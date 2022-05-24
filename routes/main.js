@@ -16,6 +16,9 @@ exports.nySide = function (req, res) {
 exports.nySide2 = function (req, res) {
     res.render("./main/nySide2");
 };
+exports.letSprog = function (req, res) {
+    res.render("./main/letSprog");
+};
 
 exports.logout = function (req, res) {
   req.session.loggedin = false;
